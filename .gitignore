@@ -1,0 +1,30 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# SQLite database (agar use kar rahe ho)
+*.db
+
+# Build files
+build/
+dist/
+
+# JWT secret ya config files
+config.py
