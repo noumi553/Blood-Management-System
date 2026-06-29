@@ -100,6 +100,15 @@ http://localhost:8000
 ## Donor Profile
 ![Blood Management Donor Profile](https://github.com/noumi553/Blood-Management-System/blob/main/ui/Screenshot%202026-06-28%20203605.png)
 
+## Admin 
+![Blood Management Admin](https://github.com/noumi553/Blood-Management-System/blob/main/ui/Screenshot%202026-06-28%20203725.png)
+
+## User
+![Blood Management Admin](https://github.com/noumi553/Blood-Management-System/blob/main/ui/Screenshot%202026-06-28%20203811.png)
+
+# recep
+![Blood Management Admin](https://github.com/noumi553/Blood-Management-System/blob/main/ui/Screenshot%202026-06-28%20203844.png)
+
 ## 👨‍💻 Developer
 
 **Nouman Aziz**
