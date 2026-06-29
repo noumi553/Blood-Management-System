@@ -93,9 +93,12 @@ http://localhost:8000
 
 ## 📸 Screenshots
 
-## 📸 Project Screenshot
+## 📸Home Page Screenshot
 
 ![Blood Management System](https://raw.githubusercontent.com/noumi553/Blood-Management-System/main/ui/Screenshot%202026-06-28%20203508.png)
+
+## Donor Profile
+![Blood Management Donor Profile](https://github.com/noumi553/Blood-Management-System/blob/main/ui/Screenshot%202026-06-28%20203605.png)
 
 ## 👨‍💻 Developer
 
