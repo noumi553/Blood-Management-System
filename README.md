@@ -93,7 +93,9 @@ http://localhost:8000
 
 ## 📸 Screenshots
 
-Add screenshots of your project here.
+## 📸 Project Screenshot
+
+![Blood Management System](https://raw.githubusercontent.com/noumi553/Blood-Management-System/main/ui/Screenshot%202026-06-28%20203508.png)
 
 ## 👨‍💻 Developer
 
