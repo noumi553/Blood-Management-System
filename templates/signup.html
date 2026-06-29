@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blood Donation Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{
+            background: url('https://media.istockphoto.com/id/1415405974/photo/blood-donor-at-donation-with-bouncy-ball-holding-in-hand.jpg?s=612x612&w=0&k=20&c=j0nkmkJxIP6U6TsI3yTq8iuc0Ufhq6xoW4FSMlKaG6A=') center/cover no-repeat; /* replace with your blood image */
+        }
+        .btn-primary {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-primary:hover {
+            background-color: #a71d2a;
+        }
+        .btn-outline-secondary {
+            color: #dc3545;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+        h3.card-title {
+            color: #dc3545;
+        }
+        a {
+            color: #dc3545;
+        }
+        a:hover {
+            color: #a71d2a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="card-title text-center" style="background: #d34d5a;
+                    padding:0; color:white; border-radius: 2px;">Registration</h4>
+                    <form>
+                        <div class="input-group input-group-sm mb-3">
+                            <span for="name" class="input-group-text">Name</span>
+                            <input type="name" class="form-control" id="name" placeholder="Enter your Name" required>
+                            <span for="fname" class="input-group-text" style="padding:10px;">Father Name</span>
+                            <input type="name" class="form-control" id="fname" placeholder="Enter your father Name" required>
+                        </div>
+                        <div class="mb-3">
+
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <label for="email" class="input-group-text" style="padding:10px;">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <label for="number" class="input-group-text" style="padding:10px;">Phone Number</label>
+                            <input type="number" class="form-control" id="number" placeholder="Enter your number" required>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <label for="password" class="input-group-text">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                            <label for="confirm-password" class="input-group-text" style="padding:10px;">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password" placeholder="Confirm password" required>
+                        </div>
+
+                        <div class="input-group input-group-sm mb-3">
+                            <label for="location" class="input-group-text">Location</label>
+                            <input type="text" class="form-control" id="location" placeholder="Enter your Location" required>
+                            <label for="confirm-password" class="input-group-text" style="padding:10px;">Date Of Birth</label>
+                            <input type="date" class="form-control" id="dob" placeholder="Enter Date Of Birth" required>
+                        </div>
+
+                        <div class="input-group input-group-sm mb-3">
+                            <label for="confirm-password" class="input-group-text" style="padding:10px;">Verification Code</label>
+                            <input type="password" class="form-control" id="verification-code" placeholder="Enter Verification Code" required>
+                            <button type="button" class="btn btn-outline-secondary" id="btn">Send Verification Email</button>
+                        </div>
+
+                        <div class="input-group input-group-sm mb-3">
+                            <label  style="color: #d34d5a;padding:0px;" class="input-group-text">Gender</label><br>
+                            <select class="form-select" id="inputGroupSelect01">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Transgender">Transgender</option>
+                            </select>
+                            <label style="color: #d34d5a" class="input-group-text">Blood Group</label><br>
+                            <select class="form-select" id="gSelect">
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary" id="submit">Register</button>
+                        </div>
+                    </form>
+
+                    <hr>
+                    <p class="text-center">Already a donor? <a href="/signin">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const submit =document.getElementById("submit")
+submit.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    let name = document.getElementById("name").value.trim();
+    let fname = document.getElementById("fname").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let confirmPassword = document.getElementById("confirm-password").value.trim();
+    let verification_code = document.getElementById("verification-code").value.trim();
+    let number = document.getElementById("number").value.trim();
+    let optionValue = document.getElementById("inputGroupSelect01").value
+    let gSelect = document.getElementById("gSelect").value
+    let dob = document.getElementById("dob").value
+    console.log(dob)
+    let donate = "❌"
+    let location = document.getElementById("location").value.trim();
+
+    let personalDetail = {
+        name,
+        fname,
+        email,
+        password,
+        confirmPassword,
+        verification_code,
+        number,
+        optionValue,
+        gSelect,
+        dob,
+        donate,
+        location
+    };
+
+    fetch('http://localhost:8000/registerUser', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(personalDetail)
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error("Server error");
+        }
+        return res.json();
+    })
+    .then(data => {
+        alert(data.msg);
+    })
+    .catch(error => {
+        console.error(error);
+        alert("❌ Something went wrong");
+    });
+});
+    document.getElementById("btn").addEventListener('click',()=>{
+        let email = document.getElementById("email").value
+
+        fetch('http://localhost:8000/otp',{
+            method: 'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({'email':email})
+        }).then(res=>res.json()).then(msg=>alert(msg.msg)).catch(error=>{
+            console.log(error)
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Blood Donation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Font Awesome (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ff3b3b;
+        }
+
+        .navbar .nav-link,
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: 500;
+        }
+
+        .navbar .nav-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            background: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 600;
+        }
+
+        .hero p {
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            background-color: #ff3b3b;
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn-custom:hover {
+            background-color: #e62e2e;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: #f5f5f5;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .cta h3 {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+    </style>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Bonded</a>
+
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto">
+                    <a class="navbar-brand" href="#">Donate Blood Save Life</a>
+                <div class="text-white mt-2">
+                    <i style="cursor:pointer;" class="far fa-bell me-3" data-bs-toggle="modal" data-bs-target="#notificationModal"></i>
+                    <i style="cursor:pointer;" class="fab fa-google-plus-g me-3"></i>
+                    <i class="fa-solid fa-gear me-3" style="
+                        font-size:15px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#orderModal"></i>
+                </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+            <div class="modal fade" id="orderModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Setting</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <label for="name" class="input-group-text" >Password</label>
+                            <input type="password" class="form-control" id="oldPassword" placeholder="Enter Old Password" required>
+                            <input type="password" class="form-control" id="updatePasswordOne" placeholder="Enter New Password" required>
+                            <button type="button" class="btn btn-outline-secondary" id="updatePasswordBtn" data-bs-target="#orderModal">Update</button>
+                        </div>
+                                                <div class="input-group input-group-sm mb-3">
+                            <label for="confirm-password" class="input-group-text">Number</label>
+                            <input id="updateNumber" type="number" class="form-control" placeholder="Update Number" required>
+                            <button type="button" class="btn btn-outline-secondary" id="updateNumberBtn">Update</button>
+                        </div>
+                                                <div class="input-group input-group-sm mb-3">
+                            <label for="location" class="input-group-text">Location</label>
+                            <input type="location" class="form-control" id="updateLocation" placeholder="Update Location" required>
+                            <button type="button" class="btn btn-outline-secondary" id="updateLocationBtn">Update</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <li class="nav-item"><button class="btn"
+                        style="background:red;color:white;" id="logout"><i class="fa-solid fa-sign-out-alt"></i></button></li>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="notificationModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Notification</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="table-responsive mt-3">
+                                <table class="table">
+                                    <thead style="background:black;color:white">
+                                        <tr>
+                                            <th>Patiant Name</th>
+                                            <th>Gurdian Name</th>
+                                            <th>Gurdian Number</th>
+                                            <th>Hospital Location</th>
+                                            <th>Hospital</th>
+                                            <th>Yes</th>
+                                            <th>No</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                <tbody id="tbody"></tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="row g-0">
+                        <div class="col-md-4 text-center p-3 text-white"style="background:#ff3b3b;">
+                            <img id="Image" src="" class="img-fluid rounded-circle border border-white"
+                                alt="Teacher Image" style="display:fliex;justify-content:center;
+                                align-item:center;width: 150px; height: 150px; object-fit: cover;">
+                            <h5 class="mt-3" id="Name"></h5>
+                            
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" placeholder="h" id='inputGroupFile04' aria-describedby="inputGroupFile03"
+                                aria-label="ulpload"/>
+                                <button id="inputGroupFileAddon04" class="btn btn-outline-secondary"
+                                style=" color: #fafffa;">Upload</button>
+                            </div>
+                            <h6 class="mb-1 mt-2">Update about Your Health</h6>
+                            <div class="input-group">
+                                <select class="form-select" id="mySelect">
+                                    <option value="Well">Well</option>
+                                    <option value="Not Well">Not Well</option>
+                                </select>
+                                <button type="submit" class="btn btn-outline-secondary" style=" color: #fafffa;" id="submit">Update</button>
+                            </div>
+                            <div style="margin-top:10px;">
+                                <p class="mb-1" style="color: #0d0e0d;">You Can Be Update About Your Health Daily</p>
+                            </div>
+                        </div>
+                        <div class="col-md-8 p-4">
+                            <h4 class="mb-4">Profile Information</h4>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Father Name</th>
+                                        <td id="fName"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>City</th>
+                                        <td id="City"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td id="Email"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td id="Phone"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Blood Group</th>
+                                        <td id="BloodGroup"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date Of Birth</th>
+                                        <td id="Dob"></td>
+                                    </tr>
+                                </tbody>
+                            <p class="mb-1" id="donate"></p>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+<script>
+    let val=[]
+    fetch('http://localhost:8000/myData').then(res=>res.json()).then(data=>{
+    let name = document.getElementById('Name')
+    let fname = document.getElementById('fName')
+    let img = document.getElementById('Image')
+    let donate = document.getElementById('donate')
+    let city = document.getElementById('City')
+    let email = document.getElementById('Email')
+    let phone = document.getElementById('Phone')
+    let dob = document.getElementById('Dob')
+    let bloodGroup = document.getElementById('BloodGroup')
+    let tbody = document.getElementById("tbody")
+    let userId = data[0].id
+    let recepdata = data[0].recepShareData
+    let recepid = []
+
+    if(recepdata != null){
+        recepdata.forEach(e=>{
+            recepid.push(e._id)
+            row = document.createElement("tr")
+            row.innerHTML = `
+            <td>${e.name}</td>
+            <td>${e.gurdianName}</td>
+            <td>${e.gurdianNumber}</td>
+            <td>${e.hospitalLocation}</td>
+            <td>${e.hospital}</td>
+            <td><button id="yes" class="yes btn" data-id="${e._id}">✅</button></td>
+            <td><button class="no btn">❌</button></td>
+            <i class="bi bi-trash-fill" style="color: red; position: relative; top: 15px; cursor: pointer;"></i>
+            `
+
+            tbody.appendChild(row)
+            
+        })
+    }
+
+    let btnyes = document.querySelectorAll(".yes");
+    let nobtn = document.querySelectorAll(".no")
+    let btn = document.querySelectorAll(".update-btn");
+    let btndelete = document.querySelectorAll('.bi')
+    
+    btndelete.forEach(btn =>{
+        btn.addEventListener('click',()=>{
+            const id = btn.dataset.id
+            if (confirm("are you sure to delete this")){
+                fetch("http://localhost:8000/recedelete",{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({id:userId})
+            }).then(res=>res.json()).then(data => alert(data.msg)).catch(error=>{
+                console.log(error)
+            })
+            }
+        })
+    })
+
+    nobtn.forEach(btn =>{
+        btn.addEventListener("click",()=>{
+            const id = btn.dataset.id
+            fetch("http://localhost:8000/receptdelete",{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({id:userId})
+            }).then(res=>res.json()).then(data => alert(data.msg)).catch(error=>{
+                console.log(error)
+            })
+        })
+    })
+
+    let id = []
+
+    document.addEventListener("click",(e)=>{
+        if(e.target.classList.contains("btn")){
+
+        let request_id = e.target.dataset.id;
+
+        id.push(request_id)
+    }
+    })
+
+    btnyes.forEach(btn=>{
+        btn.addEventListener("click",()=>{
+            const id = btn.dataset.id;
+
+            fetch("http://localhost:8000/recepupdatestatus",{
+                method:"POST",
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({id:id})
+            })
+
+            fetch("http://localhost:8000/updateDonate",{
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({id:userId})
+            }).then(res=>res.json()).then(data=>{alert(data.msg)}).catch(error=>{
+                console.log(error)
+            })
+            fetch("http://localhost:8000/updatecount", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            id: userId,
+                            value: 1
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => console.log(data));
+        })
+    })
+
+    btn.forEach((button)=>{
+                button.addEventListener('click',()=>{
+                const id = button.dataset.id;
+                if(confirm("Are you sure to donate blood")){
+                fetch("http://localhost:8000/updateDonate",{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({id})
+                }).then(res=>res.json()).then(data=>alert(data.msg)).catch(error=>{
+                    console.log(error)
+                })
+            }else{
+                alert("update cancelled")
+            }
+            })
+        })
+    val.push(data[0].email)
+
+    let lastIndex = data[0].file.length - 1
+    img.src = `http://localhost:8000/${data[0].file[lastIndex]}`
+    name.innerText = data[0].name
+    fname.innerText = data[0].fname
+    city.innerText = data[0].location
+    email.innerText = data[0].email
+    phone.innerText = data[0].number
+    dob.innerText = data[0].dob
+    bloodGroup.innerText = data[0].BloodGroup
+    
+    if(data[0].donate == "❌"){
+        donate.innerText = `Can not donate blood :${data[0].donate}`
+    }
+    else{
+        donate.innerText = `donate blood :${data[0].donate}`
+    }
+}).catch(error=>{
+    console.log(error)
+})
+
+let btn = document.getElementById("submit")
+btn.addEventListener("click",()=>{
+    let selected = document.getElementById("mySelect").value
+    if(confirm('are you sure to update this')){
+        fetch('http://localhost:8000/health',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+        },
+        body: JSON.stringify({selected,val})
+    }).then(res=>res.json()).then(data=>alert(data.msg)).catch(error=>{
+        console.log(error)
+    })
+    }
+})
+
+let logout = document.getElementById("logout")
+
+logout.addEventListener("click",()=>{
+        fetch('http://localhost:8000/logout',{
+            method: 'POST',
+            credentials: 'same-origin'
+        }).then(res=>{
+            if(!res.ok) throw new Error('Network Error')
+            return res.json()
+        })
+        .then(data=>{
+            if(data.status === 'success'){
+                window.location.href = '/'
+            }
+        }).catch(error=>{console.log(error)})
+})
+
+    let uploadButton = document.getElementById("inputGroupFileAddon04")
+    let fileInput = document.getElementById("inputGroupFile04")
+    let filePath = []
+
+    uploadButton.addEventListener('click',()=>{
+        const file = fileInput.files[0]
+        let formData = new FormData()
+        formData.append('photo',file)
+        formData.append('id',val)
+        
+        fetch('http://localhost:8000/upload',{
+            method:'POST',
+            body: formData
+        }).then(res=>res.json()).then(data=>alert(data.msg)).catch(error=>console.log(error))
+    })
+
+    let updatePasswordBtn = document.getElementById("updatePasswordBtn")
+
+    updatePasswordBtn.addEventListener("click",()=>{
+        let oldPassword = document.getElementById("oldPassword").value
+        let updatePasswordOne = document.getElementById("updatePasswordOne").value
+        let pass = {oldPassword,updatePasswordOne}
+        fetch('http://localhost:8000/updatePassword',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({pass,val})
+        }).then(res=>res.json()).then(data=>{alert(data.msg)}).catch(error=>{
+            console.log(error)
+        })
+    })
+
+    const updateNumberBtn = document.getElementById("updateNumberBtn")
+
+    updateNumberBtn.addEventListener("click",()=>{
+        let updateNumber=document.getElementById("updateNumber").value
+        fetch('http://localhost:8000/updateNumber',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({updateNumber,val})
+        }).then(res=>res.json()).then(data=>{alert(data.msg)}).catch(error=>{
+            console.log(error)
+        })
+    })
+
+    let updateLocationBtn = document.getElementById("updateLocationBtn")
+
+    updateLocationBtn.addEventListener("click",()=>{
+        let updateLocation = document.getElementById("updateLocation").value
+        fetch('http://localhost:8000/updateLocation',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({updateLocation,val})
+        }).then(res=>res.json()).then(data=>{alert(data.msg)}).catch(error=>{
+            console.log(error)
+        })
+    })
+</script>
+</html>

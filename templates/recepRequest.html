@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blood Donation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<style>
+body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ff3b3b;
+        }
+
+        .navbar .nav-link,
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: 500;
+        }
+
+        .navbar .nav-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            background: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 600;
+        }
+
+        .hero p {
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            background-color: #ff3b3b;
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn-custom:hover {
+            background-color: #e62e2e;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: #f5f5f5;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .cta h3 {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .offcanvas a{
+            text-decoration:none;
+            color:white;
+            font-size:19px;
+            padding:10px;
+            transition:2s ease;
+            border-radius: 4px;
+        }
+
+        .offcanvas a:hover{
+            background: black;
+        }
+        .myContainer{
+            display:flex;
+            justify-content:space-around;
+            background-color: #ff3b3b;
+            align-items:center
+        }
+</style>
+</head>
+
+<body>
+
+        <div class="myContainer">
+        <button data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+        style="background:none;border:none;color:white;font-size:29px">
+            ☰
+        </button>
+        <h3 style="color:white;font-size:29px">Bonded</h3>
+    </div>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
+        <div class="offcanvas-header" style="background-color: #ff3b3b;color:white;">
+            <h5>Menu</h5>
+            <button class="btn-close" data-bs-dismiss="offcanvas" style="color:white;"></button>
+        </div>
+        <div class="offcanvas-body" style="background-color: #3d3c3c;margin:none;padding:30px;">
+            <a href="/admin" class="d-block mb-2">Admin</a>
+            <a href="#" class="d-block mb-2">Donar Users</a>
+            <a href="/recepRequest" class="d-block">Recep Request</a>
+        </div>
+</div>
+
+<div class="table-responsive mt-3">
+<table class="table">
+<thead style="background:black;color:white">
+<tr>
+<th>Name</th>
+<th>Phone</th>
+<th>Location</th>
+<th>Status</th>
+<th>Donor</th>
+<th>Health</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+
+let users = [];
+let selectedUsers = {};
+
+// 🔹 STEP 1: users fetch
+fetch("http://localhost:8000/userData")
+.then(r => r.json())
+.then(userData => {
+
+    users = userData;
+
+    return fetch("http://localhost:8000/recepData");
+})
+.then(r => r.json())
+.then(data => {
+
+    let tbody = document.getElementById("tbody");
+
+    data.forEach(e => {
+
+        let tr = document.createElement("tr");
+
+        // options
+        let options = `<option value="">Select donor</option>`;
+
+        users.forEach(u => {
+            options += `
+                <option value="${u.id}">
+                    ${u.name} | ${u.number} | ${u.location} | ${u.donate} | ${u.health}
+                </option>
+            `;
+        });
+
+        tr.innerHTML = `
+            <td>${e.petiantName}</td>
+            <td>${e.gurdianNumber}</td>
+            <td>${e.hospitalLocation}</td>
+            <td>${e.status}</td>
+
+            <td>
+                <select class="donorSelect form-select" data-row="${e._id}" style="width:200px">
+                    ${options}
+                </select>
+            </td>
+
+            <td>
+                <button class="btn btn-primary" data-id="${e._id}">
+                    Send Detail
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+
+        let select = tr.querySelector(".donorSelect");
+
+        // Select2 init
+        $(select).select2({
+            placeholder: "Search donor",
+            allowClear: true
+        });
+
+        // 🔥 FIXED EVENT (IMPORTANT)
+        $(select).on("select2:select", function (e) {
+
+            let rowId = this.dataset.row;
+
+            // ✅ ALWAYS USE THIS (NOT this.value)
+            let userId = e.params.data.id;
+
+            selectedUsers[rowId] = userId;
+
+            console.log("Selected Users:", selectedUsers);
+        });
+
+    });
+
+});
+
+
+// 🔹 BUTTON CLICK
+document.addEventListener("click", function(e){
+
+    if(e.target.classList.contains("btn")){
+
+        let rowId = e.target.dataset.id;
+        let userId = selectedUsers[rowId];
+
+        if(!userId){
+            alert("Please select a donor first!");
+            return;
+        }
+
+        let d ={
+            'request_id':rowId,
+            'donar_id':userId
+        }
+
+        fetch('http://localhost:8000/userPush',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+        request_id: rowId,
+        donar_id: userId
+    })
+        }).then(res=>res.json()).then(data=>{alert(data.msg)}).catch(error=>{
+            console.log(error)
+        })
+        console.log("FINAL DATA:");
+        console.log("Request ID:", rowId);
+        console.log("User ID:", userId);
+    }
+});
+
+</script>
+
+</body>
+</html>
